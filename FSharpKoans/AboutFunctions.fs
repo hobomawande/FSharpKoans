@@ -35,12 +35,12 @@ module ``03: Putting the Function into Functional Programming`` =
     [<Test>]
     let ``05 A function can be bound to a name (Part 1).`` () =
         let one_third = fun ka -> ka / 3
-        21 |> should equal 7
+        one_third 21 |> should equal 7                           // solved
 
     [<Test>]
     let ``06 A function can be bound to a name (Part 2).`` () =
         let pinky bleh = bleh / 3 // The syntax has changed from Part 1, but the meaning is the same
-        __ 21 |> should equal 7
+        pinky 21 |> should equal 7                                 // solved
 
     [<Test>]
     let ``07 A function can span multiple lines (Part 1).`` () =
@@ -55,8 +55,7 @@ module ``03: Putting the Function into Functional Programming`` =
         let jorus who =
             let p = 5
             who * p
-        jorus 12 |> should equal __
-
+        jorus 12 |> should equal 60                       // solved
     [<Test>]
     let ``09 A function can span multiple lines (Part 2, expanded syntax).`` () =
         // This is largely the same as the previous test; the syntax is just more explicit.
@@ -66,7 +65,7 @@ module ``03: Putting the Function into Functional Programming`` =
                 let p = 3 in
                     who * p
         in
-            jorus 12 |> should equal __
+            jorus 12 |> should equal 36            // solved
 
     // The next few are very similar.  Resist the temptation to
     // just fill out values without having any idea about what's
@@ -79,36 +78,36 @@ module ``03: Putting the Function into Functional Programming`` =
         // read the above as: fun love -> (fun hate -> (love - hate))
         let j = i 10
         let k = j 9
-        k |> should equal __
+        k |> should equal 1                             // solved
 
     [<Test>]
     let ``11 A function can return a function (Part 2).`` () =
         let funky a b = a + b
         let j = funky 10
         let k = j 9
-        k |> should equal __
+        k |> should equal 19                       //solved
 
     [<Test>]
     let ``12 You can write a function as a one-liner (Part 1).`` () =
-        (fun ___ -> fun ___ -> __ * __) __ __ |> should equal 27
+        (fun a -> fun x -> x * 27) 1 1 |> should equal 27                     // solved
 
     [<Test>]
     let ``13 You can write a function as a one-liner (Part 2).`` () =
-        (fun _____ ____ -> __ + __) __ __ |> should equal 17
+        (fun a -> a + 7) 10|> should equal 17                             // solved
 
     [<Test>]
     let ``14 'Multiple-argument' functions are one-input, one-output in disguise`` () =
       let i j k = j * k
-      let j = __ 4
-      let k = __ 12
-      k |> should equal 48
+      let j = i 4
+      let k = j 12
+      k |> should equal 48                                           // solved
 
     [<Test>]
     let ``15 A function is executed when it is called, NOT when it is defined or referenced (Part 1).`` () =
         let f a =
             failwith "An exception will be thrown as soon as this is executed."
             a + 2
-        ___ |> should be ofType<int -> int>
+        f |> should be ofType<int -> int>                                               // solved
 
     [<Test>]
     let ``16 A function is executed when it is called, NOT when it is defined or referenced (Part 2).`` () =
@@ -116,8 +115,8 @@ module ``03: Putting the Function into Functional Programming`` =
             let f a =
                 failwith "An exception will be thrown as soon as this is executed."
                 a + 2
-            FILL_ME__IN |> should equal 1234
-        ) |> should throw typeof<System.Exception>
+            () |> should equal 1234
+        ) |> should throw typeof<System.Exception>                                         // solved
 
     [<Ignore("Later")>]
     let ``17 Partially specifying arguments (Part 1).`` () =
@@ -125,8 +124,8 @@ module ``03: Putting the Function into Functional Programming`` =
         // reuse functionality.  This technique is exceptionally flexible and often
         // seen in functional code, so you should try to understand it fully.
         let f animal noise = animal + " says " + noise
-        let kittehs = __ "cat"
-        __ "nyan" |> should equal "cat says nyan"
+        let kittehs =  "cat"
+        kittehs+ "nyan" |> should equal "cat says nyan"
 
     [<Ignore("Later")>]
     let ``18 Partially specifying arguments (Part 2).`` () =
@@ -150,7 +149,7 @@ module ``03: Putting the Function into Functional Programming`` =
     let ``17 Two names can be bound to the same value`` () =
         let f x = x + 2
         let y = f
-        y 20 |> should equal ___
+        y 20 |> should equal 22                                // solved
 
     [<Ignore("Later")>]
     let ``21 Getting closure`` () =
@@ -158,8 +157,8 @@ module ``03: Putting the Function into Functional Programming`` =
             let middle = (final - initial) / 2
             fun t -> t-middle, t+middle
         // note the number of inputs provided below.  Do you see why I can do this?
-        calculate 10 20 5 |> should equal __
-        calculate 0 600 250 |> should equal __
+        calculate 10 20 5 |> should equal 10
+        calculate 0 600 250 |> should equal 0
 
     [<Ignore("Later")>]
     let ``22 Using a value defined in an inner scope`` () =
@@ -170,8 +169,8 @@ module ``03: Putting the Function into Functional Programming`` =
                 | 0 -> 10
                 | 1 -> 65
             fun x -> result - x
-        g 5 8 |> should equal __
-        g 8 5 |> should equal __
+        g 5 8 |> should equal 2
+        g 8 5 |> should equal 5
         // PS. I hope this one brought you some closure.
 
     [<Test>]
@@ -179,8 +178,8 @@ module ``03: Putting the Function into Functional Programming`` =
         let a = 25
         let f () = a + 10
         let a = 99
-        a |> should equal __
-        f () |> should equal __
+        a |> should equal 99
+        f () |> should equal 35                     // solved
 
     [<Test>]
     let ``19 Nesting functions`` () =
@@ -188,15 +187,15 @@ module ``03: Putting the Function into Functional Programming`` =
             let triple x = x * 3
             let addOne x = x + 1
             addOne (triple x)
-        hailstone 5 |> should equal __
+        hailstone 5 |> should equal 16              // solved
 
     [<Test>]
     let ``20 Functions have types`` () =
         let a x y = x + "cabbage" + y
         let b r = 50.0 / r
-        a |> should be ofType<FILL_ME_IN>
-        b |> should be ofType<FILL_ME_IN>
-
+        a |> should be ofType<string -> string ->string >
+        b |> should be ofType<float -> float>
+                                                            // solved
 
     [<Test>]
     let ``21 Passing a function as a parameter`` () =
@@ -214,24 +213,24 @@ module ``03: Putting the Function into Functional Programming`` =
     *)
         let somefunc x y = x + y x
         let square v = v * v
-        somefunc 3 square |> should equal __
-        somefunc 3 ((*) 7) |> should equal __
-        somefunc 10 ((+) 8) |> should equal __
-        somefunc 5 (fun z -> z + 22) |> should equal __
+        somefunc 3 square |> should equal 12
+        somefunc 3 ((*) 7) |> should equal 24                // problem
+        somefunc 10 ((+) 8) |> should equal 38              // problem
+        somefunc 5 (fun z -> z + 22) |> should equal 32
 
-    [<Ignore("Later")>]
+    [<Test>]
     let ``28 Type annotations for function types`` () =
-        let a (x:FILL_ME_IN) (y:FILL_ME_IN) = x + y
-        let b (x:FILL_ME_IN) (y:FILL_ME_IN) = x + y
+        let a (x:string) (y:string) = x + y
+        let b (x:float) (y:float) = x + y
         a |> should be ofType<string -> string -> string>
         b |> should be ofType<float -> float -> float>
-        a __ __ |> should equal "skipping"
-        b __ __ |> should equal 1.02
+        a "skip" "ping" |> should equal "skipping"
+        b 1.0 0.02 |> should equal 1.02                   // solved
 
-    [<Ignore("Later")>]
+    [<Test>]
     let ``29 We can use a type annotation for a function's output`` () =
-        let k a b : FILL_ME_IN = a * b
-        k __ __ |> should equal 15.0 
+        let k a b :float = a * b
+        k 2.0 7.5 |> should equal 15.0                              // solved
 
     (*
         Sometimes you want to force type-resolution to occur at a call-site.
@@ -240,12 +239,12 @@ module ``03: Putting the Function into Functional Programming`` =
     *)
 
     // see: https://msdn.microsoft.com/en-us/library/dd548047.aspx
-    [<Ignore("Later")>]
+    [<Test>]
     let ``30 The 'inline' keyword forces type-resolution at callsite`` () =
-        let (*REPLACE_THIS_COMMENT_WITH_KEYWORD*) a x y = x + y
+        let inline a x y = x + y
         a 6 7 |> should equal 13 // expected: an int
-        a __ __ |> should equal 1.2 // expected: a float
-        a __ __ |> should equal "beebop" // expected: a string
+        a 0.0 1.2 |> should equal 1.2 // expected: a float
+        a "bee" "bop" |> should equal "beebop" // expected: a string          
 
    (*
        Did you know that operators like +, -, =, >, and so on, are actually
@@ -256,9 +255,9 @@ module ``03: Putting the Function into Functional Programming`` =
     let ``22 Operators are functions in disguise`` () =
         (+) 5 8 |> should equal __
         (-) 3 5 |> should equal __
-        (/) 12 4 |> should equal __
-        (=) 93.1 93.12 |> should equal __
-        (<) "hey" "jude" |> should equal __
+        (/) 12 4 |> should equal 3
+        (=) 93.1 93.12 |> should equal false
+        (<) "hey" "jude" |> should equal false
         // ... and other operators: >, <=, >=, <>, %, ...
 
 (*
@@ -300,9 +299,9 @@ module ``03: Putting the Function into Functional Programming`` =
     let ``24 The output type of one pipe must be the input type to the next`` () =
         let a x = x * 2.5
         let b x = x = 7.5
-        a |> should be ofType<FILL_ME_IN>
-        b |> should be ofType<FILL_ME_IN>
-        __ |> __ |> __ |> should equal true
+        a |> should be ofType<float -> float>
+        b |> should be ofType<float -> bool>
+        b |> __ |> __ |> should equal true
 
     (*
         The backwards-pipe operator takes:
@@ -348,7 +347,7 @@ module ``03: Putting the Function into Functional Programming`` =
         let j = double >> add5
         let k = double >> double >> double
         let l = j >> i
-        i 3 |> should equal __
-        j 3 |> should equal __
-        k 3 |> should equal __
-        l 3 |> should equal __
+        i 3 |> should equal 16
+        j 3 |> should equal 11
+        k 3 |> should equal 54
+        l 3 |> should equal 32
