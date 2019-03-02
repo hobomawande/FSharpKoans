@@ -48,7 +48,7 @@ module ``03: Putting the Function into Functional Programming`` =
             let k = "swash" // notice the indentation.
             let b = "buckle" // F# is whitespace-sensitive, so it is important!
             zorro + " likes to " + k + b
-        ) "Zorro the pirate" |> should equal __
+        ) "Zorro the pirate" |> should equal "Zorro the pirate likes to swashbuckle"   // solved
 
     [<Test>]
     let ``08 A function can span multiple lines (Part 2).`` () =
@@ -158,7 +158,7 @@ module ``03: Putting the Function into Functional Programming`` =
             fun t -> t-middle, t+middle
         // note the number of inputs provided below.  Do you see why I can do this?
         calculate 10 20 5 |> should equal 10
-        calculate 0 600 250 |> should equal 0
+        calculate 0 600 250 |> should equal 550
 
     [<Ignore("Later")>]
     let ``22 Using a value defined in an inner scope`` () =
@@ -169,7 +169,7 @@ module ``03: Putting the Function into Functional Programming`` =
                 | 0 -> 10
                 | 1 -> 65
             fun x -> result - x
-        g 5 8 |> should equal 2
+        g 5 8 |> should equal 57
         g 8 5 |> should equal 5
         // PS. I hope this one brought you some closure.
 
@@ -214,8 +214,8 @@ module ``03: Putting the Function into Functional Programming`` =
         let somefunc x y = x + y x
         let square v = v * v
         somefunc 3 square |> should equal 12
-        somefunc 3 ((*) 7) |> should equal 24                // problem
-        somefunc 10 ((+) 8) |> should equal 38              // problem
+        somefunc 3 ((*) 7) |> should equal 24          // problem
+        somefunc 10 ((+) 8) |> should equal 28           // problem
         somefunc 5 (fun z -> z + 22) |> should equal 32
 
     [<Test>]
@@ -244,7 +244,7 @@ module ``03: Putting the Function into Functional Programming`` =
         let inline a x y = x + y
         a 6 7 |> should equal 13 // expected: an int
         a 0.0 1.2 |> should equal 1.2 // expected: a float
-        a "bee" "bop" |> should equal "beebop" // expected: a string          
+        a "bee" "bop" |> should equal "beebop" // expected: a string                            // solved
 
    (*
        Did you know that operators like +, -, =, >, and so on, are actually
@@ -253,11 +253,11 @@ module ``03: Putting the Function into Functional Programming`` =
 
     [<Test>]
     let ``22 Operators are functions in disguise`` () =
-        (+) 5 8 |> should equal __
-        (-) 3 5 |> should equal __
+        (+) 5 8 |> should equal 13
+        (-) 3 5 |> should equal -2
         (/) 12 4 |> should equal 3
         (=) 93.1 93.12 |> should equal false
-        (<) "hey" "jude" |> should equal false
+        (<) "hey" "jude" |> should equal true
         // ... and other operators: >, <=, >=, <>, %, ...
 
 (*
@@ -279,10 +279,10 @@ module ``03: Putting the Function into Functional Programming`` =
     let ``23 |>, the 'pipe' operator`` () =
         let add5 a = a + 5
         let double a = a * 2
-        3 |> add5 |> double |> should equal __  // <-- start with three, add 5, then double. Readable, isn't it?
-        3 |> double |> add5 |> should equal __
-        6 |> add5 |> add5 |> should equal __
-        8 |> double |> double |> add5 |> should equal __
+        3 |> add5 |> double |> should equal 16  // <-- start with three, add 5, then double. Readable, isn't it?
+        3 |> double |> add5 |> should equal 11
+        6 |> add5 |> add5 |> should equal 16
+        8 |> double |> double |> add5 |> should equal 37               // solved
 
     (*
         The pipe operator takes:
@@ -301,7 +301,7 @@ module ``03: Putting the Function into Functional Programming`` =
         let b x = x = 7.5
         a |> should be ofType<float -> float>
         b |> should be ofType<float -> bool>
-        b |> __ |> __ |> should equal true
+        3.0 |> a |> b |> should equal true
 
     (*
         The backwards-pipe operator takes:
@@ -322,7 +322,7 @@ module ``03: Putting the Function into Functional Programming`` =
         let a x =
             x = 4
         not (a 4) |> should equal false
-        (__ __ a 4) |> should equal false // <-- put <| in one of the spaces to fill in
+        (not <| a 4) |> should equal false // <-- put <| in one of the spaces to fill in
 
     (*
         The compose operator takes:
@@ -349,5 +349,5 @@ module ``03: Putting the Function into Functional Programming`` =
         let l = j >> i
         i 3 |> should equal 16
         j 3 |> should equal 11
-        k 3 |> should equal 54
-        l 3 |> should equal 32
+        k 3 |> should equal 24
+        l 3 |> should equal 32   // solved
