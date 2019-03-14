@@ -73,5 +73,11 @@ module ``08: The Good Kind of Discrimination`` =
             match x with
             | Empty -> 0
             | Node (_, a, b) -> 1 + max (depth a) (depth b)
-        let a = __  // <-- you may want to spread this over multiple lines and/or let-bindings ...!
+        let a =   // <-- you may want to spread this over multiple lines and/or let-bindings ...!
+            let empty=Empty
+            let one =Node ("Cow",empty,empty)
+            let second =Node ("MOO",empty,one)
+            let third=Node ("Hallo world",second,second)
+            let forth=Node ("Third",second,third)
+            forth
         depth a |> should equal 4
