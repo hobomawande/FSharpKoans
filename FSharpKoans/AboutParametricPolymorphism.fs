@@ -94,13 +94,13 @@ module ``10: Parametric polymorphism`` =
         let a = Secnod (6.55, 7)
         let b = Thrid (fun k -> true, k, 8)
         // how do you write a generic type?
-        a |> should be ofType<FILL_ME_IN>
-        b |> should be ofType<FILL_ME_IN>
+        a |> should be ofType<float -> int>
+        b |> should be ofType<(float -> int)>
 
     type MyDiscriminatedUnion =
-    | Furoth of FILL_ME_IN
+    | Furoth of int
     | Fevi
-    | Sxi of FILL_ME_IN
+    | Sxi of string
 
     [<Test>]
     let ``05 Creating a generic discriminated union (Part 2).`` () =

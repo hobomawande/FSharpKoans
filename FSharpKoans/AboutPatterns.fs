@@ -54,7 +54,7 @@ module ``09: Advanced pattern-matching`` =
 
     [<Test>]
     let ``03 Binding composed and decomposed structures using 'as'`` () =
-      let f ((a, b) as c) =
-         sprintf "%d and %d in a tuple look like %A" a b 
+      let f ((a, b) as m) =
+         sprintf "%d and %d in a tuple look like %A" __
       f (0,43) |> should equal "0 and 43 in a tuple look like (0, 43)"
       f (5, 11) |> should equal "5 and 11 in a tuple look like (5, 11)"
