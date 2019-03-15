@@ -36,9 +36,9 @@ module ``09: Advanced pattern-matching`` =
     let ``02 Identifiers bound on all branches of an OR-pattern must be the same`` () =
         let f input =
             match input with
-            | 0,0 -> "Both 0"
-            | (3,0) | (0,4) -> sprintf "One 0, one %d" __
-            | (9,5) -> "No 0"
+            | (0,0) -> "Both 0"
+            | (0,a)| (a,0) -> sprintf "One 0, one %d" a
+            | (a,b) -> "No 0"
         f (3,0) |> should equal "One 0, one 3"
         f (0, 4) |> should equal "One 0, one 4"
         f (9, 5) |> should equal "No 0"
@@ -55,6 +55,6 @@ module ``09: Advanced pattern-matching`` =
     [<Test>]
     let ``03 Binding composed and decomposed structures using 'as'`` () =
       let f ((a, b) as m) =
-         sprintf "%d and %d in a tuple look like %A" __
+         sprintf "%d and %d in a tuple look like %A" a b m
       f (0,43) |> should equal "0 and 43 in a tuple look like (0, 43)"
       f (5, 11) |> should equal "5 and 11 in a tuple look like (5, 11)"
