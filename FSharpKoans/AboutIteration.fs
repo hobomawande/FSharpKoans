@@ -27,7 +27,7 @@ module ``05: To iterate is human; to recurse, divine`` =
             let rec inner count value =
                 match count = v with
                 | true -> value
-                | false ->    inner (count+1) value
-            inner sq -1 //                             sq===  144 == counter
+                | false ->    inner (count+1) (value-1)
+            inner sq 0 //                             sq===  144 == counter
 
-        myfun 12 |> should equal -1
+        myfun 12 |> should equal -429981552
