@@ -107,6 +107,7 @@ module ``12: I Have Here In My Hand A List`` =
             | [a;b;c;d;e] -> "prune"
             | _::t::_::u::_ -> t + u
             | _ -> "fig"
+
         k |> should equal "peachwatermelon"
 
     [<Test>]
@@ -115,4 +116,7 @@ module ``12: I Have Here In My Hand A List`` =
         let l = [3..3..20]
         k.[3] |> should equal 9
         l.[3] |> should equal 12
+
+
+        k |> should equal __
 

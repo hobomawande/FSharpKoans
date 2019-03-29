@@ -310,7 +310,7 @@ or something else), it's likely that you'll be able to use a fold.
         // - why does it return a 'b list, and not a 'b list option ?
         let choose (p : 'a -> 'b option) (xs : 'a list) : 'b list =
            // __ // Does this: https://msdn.microsoft.com/en-us/library/ee353456.aspx
-           xs|> List.tryPick(p -> fun x=x*2)
+          
         let f x =
             match x<=45 with
             | true -> Some(x*2)
