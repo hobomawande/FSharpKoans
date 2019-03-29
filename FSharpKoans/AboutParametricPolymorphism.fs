@@ -65,10 +65,10 @@ module ``10: Parametric polymorphism`` =
         let a = false
         let b = 't'
         x |> should be ofType<int>
-        y |> should be ofType<FILL_ME_IN>
-        z |> should be ofType<FILL_ME_IN>
-        a |> should be ofType<FILL_ME_IN>
-        b |> should be ofType<FILL_ME_IN>
+        y |> should be ofType<string>
+        z |> should be ofType<float>
+        a |> should be ofType<bool>
+        b |> should be ofType<char>
 
     [<Test>]
     let ``02 id: the simplest built-in generic function`` () =
@@ -81,10 +81,10 @@ module ``10: Parametric polymorphism`` =
     [<Test>]
 
     let ``02 Defining a generic function`` () =
-        let f x y = (x,y,y)
+     fun   f x y -> (x,y,y)
 
     let ``03 Defining a generic function`` () =
-        let f x y = __
+        let f x y = (x ,y, y)
 
         f 4 5 |> should equal (4, 5, 5)
         f "k" 'p' |> should equal ("k", 'p', 'p')
@@ -107,9 +107,9 @@ module ``10: Parametric polymorphism`` =
     [<Test>]
 
     let ``03 Creating a generic record`` () =
-        // You need to edit the definition of MyRecord first!  It's just above this test
-        let a = { Who="The Doctor"; What=4.53; Where="TTFN" }
-        let b = {Who='R';What=false;Where="tiffin"}
+     __  // You need to edit the definition of MyRecord first!  It's just above this test
+    //let a<'a> = { Who="The Doctor"; What=4.53; Where="TTFN" }
+    //let b<'a> = {Who='R';What=false;Where="tiffin"}
 
     let ``04 Creating a generic record`` () =
         // You need to edit the definition of MyRecord first!  It's just above this test.
@@ -158,6 +158,6 @@ module ``10: Parametric polymorphism`` =
         | Furoth p -> p |> should equal p
         | _ -> Assert.Fail ()
         match d with
-        | Sxi y -> y |> should equal a     (* problem is here*)
+        | Sxi y -> y |> should equal y     (* problem is here*)
         | _ -> Assert.Fail ()
         

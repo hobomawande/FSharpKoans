@@ -79,9 +79,9 @@ module ``15: Advanced techniques`` =
         ignore (doSomethingForTheSideEffect "blorp") |> should equal ()
         doSomethingForTheSideEffect 19.66 |> ignore |> should equal ()
 
-        doSomethingForTheSideEffect 5 |> should equal __
-        ignore (doSomethingForTheSideEffect "blorp") |> should equal __
-        doSomethingForTheSideEffect 19.66 |> ignore |> should equal __
+        doSomethingForTheSideEffect 5 |> should equal 5
+        ignore (doSomethingForTheSideEffect "blorp") |> should equal ()
+        doSomethingForTheSideEffect 19.66 |> ignore |> should equal ()
 
     [<Test>]
     let ``05 Partially specifying arguments (Part 1).`` () =
@@ -89,15 +89,15 @@ module ``15: Advanced techniques`` =
         // reuse functionality.  This technique is exceptionally flexible and often
         // seen in functional code, so you should try to understand it fully.
         let f animal noise = animal + " says " + noise
-        let kittehs = __ "cat"
-        __ "nyan" |> should equal "cat says nyan"
+        let kittehs = f "cat"
+        kittehs "nyan" |> should equal "cat says nyan"
 
     [<Test>]
     let ``06 Partially specifying arguments (Part 2).`` () =
         // as above, but what do you do when the arguments aren't in the order
         // that you want them to be in?
         let f animal noise = animal + " says " + noise
-        let howl k = __ // <- multiple words on this line.  You MUST use `f`.
+        let howl k = f  // <- multiple words on this line.  You MUST use `f`.
         howl "dire wolf" |> should equal "dire wolf says slash/crunch/snap"
         howl "direr wolf" |> should equal "direr wolf says slash/crunch/snap"
 
@@ -106,7 +106,7 @@ module ``15: Advanced techniques`` =
         // Extending a bit more, what do you do when you want to apply a function,
         // but modify the result before you give it back?
         let f animal noise = animal + " says " + noise
-        let cows = __ // <-- multiple words on this line, or you may want to make this a multi-line thing.  You MUST use `f`.
+        let cows c= f "cow" c+", de gozaru" // <-- multiple words on this line, or you may want to make this a multi-line thing.  You MUST use `f`.
         cows "moo" |> should equal "cow says moo, de gozaru"
         cows "MOOooOO" |> should equal "cow says MOOooOO, de gozaru"
 
@@ -116,8 +116,8 @@ module ``15: Advanced techniques`` =
             let middle = (final - initial) / 2
             fun t -> t-middle, t+middle
         // note the number of inputs provided below.  Do you see why I can do this?
-        calculate 10 20 5 |> should equal __
-        calculate 0 600 250 |> should equal __
+        calculate 10 20 5 |> should equal (  0,10 )                       // midd =-2.5
+        calculate 0 600 250 |> should equal (-50,550)                   // 125
 
     [<Test>]
     let ``09 Using a value defined in an inner scope`` () =
@@ -128,7 +128,7 @@ module ``15: Advanced techniques`` =
                 | 0 -> 10
                 | 1 -> 65
             fun x -> result - x
-        g 5 8 |> should equal __
-        g 8 5 |> should equal __
+        g 5 8 |> should equal 57
+        g 8 5 |> should equal 5
         // PS. I hope this one brought you some closure.
 

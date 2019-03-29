@@ -118,7 +118,7 @@ module ``03: Putting the Function into Functional Programming`` =
             () |> should equal 1234
         ) |> should throw typeof<System.Exception>                                         // solved
 
-<<<<<<< HEAD
+
     [<Ignore("Later")>]
     let ``17 Partially specifying arguments (Part 1).`` () =
         // this shows you how you can partially specify particular arguments to
@@ -146,15 +146,14 @@ module ``03: Putting the Function into Functional Programming`` =
         cows "moo" |> should equal "cow says moo, de gozaru"
         cows "MOOooOO" |> should equal "cow says MOOooOO, de gozaru"
 
-=======
->>>>>>> 400a467c462aa18eba449909d2de3f0a987d61c5
+
     [<Test>]
     let ``17 Two names can be bound to the same value`` () =
         let f x = x + 2
         let y = f
         y 20 |> should equal 22                                // solved
 
-<<<<<<< HEAD
+
     [<Ignore("Later")>]
     let ``21 Getting closure`` () =
         let calculate initial final = // note the number of inputs.
@@ -176,8 +175,7 @@ module ``03: Putting the Function into Functional Programming`` =
         g 5 8 |> should equal 57
         g 8 5 |> should equal 5
         // PS. I hope this one brought you some closure.
-=======
->>>>>>> 400a467c462aa18eba449909d2de3f0a987d61c5
+
 
     [<Test>]
     let ``18 Shadowing and functions`` () =
@@ -224,7 +222,7 @@ module ``03: Putting the Function into Functional Programming`` =
         somefunc 10 ((+) 8) |> should equal 28           // problem
         somefunc 5 (fun z -> z + 22) |> should equal 32
 
-<<<<<<< HEAD
+
     [<Test>]
     let ``28 Type annotations for function types`` () =
         let a (x:string) (y:string) = x + y
@@ -253,8 +251,7 @@ module ``03: Putting the Function into Functional Programming`` =
         a 0.0 1.2 |> should equal 1.2 // expected: a float
         a "bee" "bop" |> should equal "beebop" // expected: a string                            // solved
 
-=======
->>>>>>> 400a467c462aa18eba449909d2de3f0a987d61c5
+
    (*
        Did you know that operators like +, -, =, >, and so on, are actually
        functions in disguise?
