@@ -79,10 +79,6 @@ module ``10: Parametric polymorphism`` =
         // id can be surprisingly useful.  Remember it :).
 
     [<Test>]
-
-    let ``02 Defining a generic function`` () =
-     fun   f x y -> (x,y,y)
-
     let ``03 Defining a generic function`` () =
         let f x y = (x ,y, y)
 
@@ -106,15 +102,11 @@ module ``10: Parametric polymorphism`` =
 
     [<Test>]
 
-    let ``03 Creating a generic record`` () =
-     __  // You need to edit the definition of MyRecord first!  It's just above this test
-    //let a<'a> = { Who="The Doctor"; What=4.53; Where="TTFN" }
-    //let b<'a> = {Who='R';What=false;Where="tiffin"}
-
+   
     let ``04 Creating a generic record`` () =
         // You need to edit the definition of MyRecord first!  It's just above this test.
-        let a = __
-        let b = __  
+        let a ={Who="The Doctor";What=4.53;Where="TTFN"}
+        let b = {Who='R'; What=bool;Where=""}
 
         a.Who |> should equal "The Doctor"
         b.Who |> should equal 'R'
@@ -158,6 +150,6 @@ module ``10: Parametric polymorphism`` =
         | Furoth p -> p |> should equal p
         | _ -> Assert.Fail ()
         match d with
-        | Sxi y -> y |> should equal y     (* problem is here*)
+        | Sxi y -> y |> should equal true    (* problem is here*)
         | _ -> Assert.Fail ()
         
