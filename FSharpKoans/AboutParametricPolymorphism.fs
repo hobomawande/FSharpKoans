@@ -106,8 +106,7 @@ module ``10: Parametric polymorphism`` =
     let ``04 Creating a generic record`` () =
         // You need to edit the definition of MyRecord first!  It's just above this test.
         let a ={Who="The Doctor";What=4.53;Where="TTFN"}
-        let b = {Who='R'; What=bool;Where=""}
-
+        let b = {Who='R'; What=false;Where="tiffin"}
         a.Who |> should equal "The Doctor"
         b.Who |> should equal 'R'
         a.What |> should equal 4.53
@@ -139,7 +138,7 @@ module ``10: Parametric polymorphism`` =
         let a = Furoth 7
         let b = Sxi "bleh"
         let c = Furoth 7
-        let d = Fevi 
+        let d = Sxi "bleh"
         match a with
         | Furoth n -> n |> should equal 7
         | _ -> Assert.Fail ()
@@ -150,6 +149,6 @@ module ``10: Parametric polymorphism`` =
         | Furoth p -> p |> should equal p
         | _ -> Assert.Fail ()
         match d with
-        | Sxi y -> y |> should equal true    (* problem is here*)
+        | Sxi y -> y |> should equal "bleh"   (* problem is here*)
         | _ -> Assert.Fail ()
         

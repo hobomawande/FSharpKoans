@@ -19,8 +19,7 @@ module ``05: To iterate is human; to recurse, divine`` =
 
         converge 3 10 0 |> should equal 4
 
-        converge 3 10 0 |> should equal __
-
+       
 
     [<Test>]
     let ``02 Tail recursion stops a stack overflow from occurring`` () =
@@ -37,5 +36,5 @@ module ``05: To iterate is human; to recurse, divine`` =
 
         myfun 12 |> should equal -429981552
 
-        myfun 12 |> should equal
+       
 

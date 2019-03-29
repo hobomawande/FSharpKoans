@@ -53,12 +53,12 @@ module ``15: Advanced techniques`` =
             match p < List.length scrollPositions && p >= 0 with
             | true -> scrollPositions.[p]
             | _ -> fun () -> "Nothing to do"
-        scrollPositions |> should be ofType< (unit -> string)list>  // wrong
+        scrollPositions |> should be ofType<(unit -> string)list>  // wrong
         getWorkAtPosition |> should be ofType<int -> unit -> string>
         getWorkAtPosition 3 |> should be ofType<unit->string>
-        (getWorkAtPosition 3) () |> should be ofType< string->unit->int>
+        (getWorkAtPosition 3) () |> should be ofType< string>
         getWorkAtPosition 250 |> should be ofType< unit -> string>
-        (getWorkAtPosition 250) () |> should be ofType<( int -> string)->unit>
+        (getWorkAtPosition 250) () |> should be ofType<(  string)>
         (getWorkAtPosition 5) () |> should equal "Load video"            // wrong
         (getWorkAtPosition -7) () |> should equal "Nothing to do"         // wrong
 
@@ -97,7 +97,7 @@ module ``15: Advanced techniques`` =
         // as above, but what do you do when the arguments aren't in the order
         // that you want them to be in?
         let f animal noise = animal + " says " + noise
-        let howl k = f  // <- multiple words on this line.  You MUST use `f`.
+        let howl k = f k "slash/crunch/snap"// <- multiple words on this line.  You MUST use `f`.
         howl "dire wolf" |> should equal "dire wolf says slash/crunch/snap"
         howl "direr wolf" |> should equal "direr wolf says slash/crunch/snap"
 

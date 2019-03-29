@@ -15,6 +15,9 @@ There are many built-in functions which return an Option.
 *)
 
 module ``11: Exploring types, options, and results`` =
+    open NUnit.Framework
+    open NUnit.Framework
+
    (*
       The next function takes in a name and extracts the surname.
       But not all people have surnames!
@@ -58,13 +61,13 @@ module ``11: Exploring types, options, and results`` =
 
     [<Test>]
     let ``02 We can use a type annotation for a function's output`` () =
-        let k a b : FILL_ME_IN = a * b
-        k __ __ |> should equal 15.0 
+        let k a b : float = a * b
+        k 5.0 3.0 |> should equal 15.0 
 
     [<Test>]
     let ``03 Basic Option example`` () =
-        getSurname "Taylor Swift" |> should equal __
-        getSurname "Eminem" |> should equal __
+        getSurname "Taylor Swift" |> should equal (Some "Swift")
+        getSurname "Eminem" |> should equal None
 
     // the System.Int32.TryParse, System.Double.TryParse, etc functions return
     // a tuple of bool * XYZ, where XYZ is the converted value.
@@ -83,8 +86,8 @@ module ``11: Exploring types, options, and results`` =
       let f n =
          match getSurname n with
          
-          |None -> failwith"[no surname]"
-          |_ -> getSurname n                   // <-- write a bunch of good match cases
+          |None -> "[no surname]"
+          |Some m->m                   // <-- write a bunch of good match cases
          
      // f "Anubis" |> should equal "[no surname]"
       f "Niccolo Machiavelli" |> should equal "Machiavelli"
@@ -100,11 +103,9 @@ module ``11: Exploring types, options, and results`` =
             match n<0.0, m=0.0 with
             | true, _ -> Error NegativeNumberSupplied
             | _, true ->Error NegativeNumberSupplied
-            | _ ->
+            |_->Ok (sqrt n / m)
                 // 'sqrt' is the square-root function
-
-                Ok (sqrt n / m)
-        f -6.0 2.5 |> should equal (NegativeNumberSupplied)
+        f -6.0 2.5 |> should equal  (Error NegativeNumberSupplied)
         f 144.0 2.0 |> should equal (Ok 6.0)
         f 7.3 0.0 |> should equal (Error DivisionByZero)
 
