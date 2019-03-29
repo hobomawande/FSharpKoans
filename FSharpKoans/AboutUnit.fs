@@ -53,14 +53,14 @@ module ``15: Using Unit 01`` =
             match p < List.length scrollPositions && p >= 0 with
             | true -> scrollPositions.[p]
             | _ -> fun () -> "Nothing to do"
-        scrollPositions |> should be ofType<unit -> string>
+        scrollPositions |> should be ofType< (unit -> string)list>  // wrong
         getWorkAtPosition |> should be ofType<int -> unit -> string>
-        getWorkAtPosition 3 |> should be ofType<int -> unit -> string>
-        (getWorkAtPosition 3) () |> should be ofType<int -> unit -> string>
-        getWorkAtPosition 250 |> should be ofType<int -> unit -> string>
-        (getWorkAtPosition 250) () |> should be ofType<int -> unit -> string>
-        (getWorkAtPosition 5) () |> should equal "Load video"
-        (getWorkAtPosition -7) () |> should equal "Nothing to do"
+        getWorkAtPosition 3 |> should be ofType<unit->string>
+        (getWorkAtPosition 3) () |> should be ofType< string->unit->int>
+        getWorkAtPosition 250 |> should be ofType< unit -> string>
+        (getWorkAtPosition 250) () |> should be ofType<( int -> string)->unit>
+        (getWorkAtPosition 5) () |> should equal "Load video"            // wrong
+        (getWorkAtPosition -7) () |> should equal "Nothing to do"         // wrong
 
     (*
         Sometimes we want to do something purely for a side-effect
@@ -74,6 +74,6 @@ module ``15: Using Unit 01`` =
         let doSomethingForTheSideEffect x =
             // ...perform side effect...
             x // return x
-        doSomethingForTheSideEffect 5 |> should equal __
-        ignore (doSomethingForTheSideEffect "blorp") |> should equal __
-        doSomethingForTheSideEffect 19.66 |> ignore |> should equal __
+        doSomethingForTheSideEffect 5 |> should equal 5
+        ignore (doSomethingForTheSideEffect "blorp") |> should equal ()
+        doSomethingForTheSideEffect 19.66 |> ignore |> should equal ()

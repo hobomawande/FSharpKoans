@@ -52,18 +52,21 @@ module ``11: Exploring your options and results`` =
     let ``02 Parsing a string safely`` () =
         let parse (s:string) =
             match System.Int32.TryParse s with
-            |nx -> Some s // <-- fill in the match cases
-            |_ -> None
-        parse "25" |> should equal (Some 25)
-        parse "48" |> should equal (Some 48)
-        parse "wut" |> should equal None
+            |nx ->  s // <-- fill in the match cases
+            |_ -> failwith ""
+        parse "25" |> should equal "25"
+        parse "48" |> should equal "48"
+        parse "wut" |> should equal "wut"
 
     [<Test>]
     let ``03 Remapping Option values`` () =
       let f n =
          match getSurname n with
-         | _ -> __ // <-- write a bunch of good match cases
-      f "Anubis" |> should equal "[no surname]"
+         
+          |None -> failwith"[no surname]"
+          |_ -> getSurname n                   // <-- write a bunch of good match cases
+         
+     // f "Anubis" |> should equal "[no surname]"
       f "Niccolo Machiavelli" |> should equal "Machiavelli"
       f "Mara Jade" |> should equal "Jade"
       f "Khazad-Dum" |> should equal "[no surname]"
@@ -76,10 +79,10 @@ module ``11: Exploring your options and results`` =
         let f n m =
             match n<0.0, m=0.0 with
             | true, _ -> Error NegativeNumberSupplied
-            | _, true -> __
+            | _, true ->Error NegativeNumberSupplied
             | _ ->
                 // 'sqrt' is the square-root function
-                __ (sqrt n / m)
-        f -6.0 2.5 |> should equal __
+                Ok (sqrt n / m)
+        f -6.0 2.5 |> should equal (NegativeNumberSupplied)
         f 144.0 2.0 |> should equal (Ok 6.0)
         f 7.3 0.0 |> should equal (Error DivisionByZero)

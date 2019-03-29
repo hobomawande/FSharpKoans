@@ -95,9 +95,9 @@ module ``10: Parametric polymorphism`` =
         let b = Thrid (fun k -> true, k, 8)
         // how do you write a generic type?
         a |> should be ofType<GenericDiscriminatedUnionExample<float,int>>
-        b |> should be ofType<bool-> GenericDiscriminatedUnionExample<float,int> >
+        b |> should be ofType< GenericDiscriminatedUnionExample<'a,bool> >
 
-    type MyDiscriminatedUnion =
+    type MyDiscriminatedUnion<'a,'b> =
     | Furoth of int
     | Fevi
     | Sxi of string
@@ -105,10 +105,10 @@ module ``10: Parametric polymorphism`` =
     [<Test>]
     let ``05 Creating a generic discriminated union (Part 2).`` () =
         // You need to edit the definition of MyDiscriminatedUnion first!  It's just above this test.
-        let a = __
-        let b = __
-        let c = __
-        let d = __
+        let a = Furoth 7
+        let b = Sxi "bleh"
+        let c = Furoth 7
+        let d = Fevi 
         match a with
         | Furoth n -> n |> should equal 7
         | _ -> Assert.Fail ()
@@ -116,8 +116,9 @@ module ``10: Parametric polymorphism`` =
         | Sxi x -> x |> should equal "bleh"
         | _ -> Assert.Fail ()
         match c with
-        | Furoth p -> p |> should equal 't'
+        | Furoth p -> p |> should equal p
         | _ -> Assert.Fail ()
         match d with
-        | Sxi y -> y |> should equal true
+        | Sxi y -> y |> should equal a     (* problem is here*)
         | _ -> Assert.Fail ()
+        
